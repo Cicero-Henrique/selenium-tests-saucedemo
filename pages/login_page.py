@@ -1,16 +1,23 @@
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import conftest
+from pages.base_page import BasePage
 
+class LoginPage(BasePage):
 
-browser = webdriver.Chrome()
-browser.maximize_window()
-browser.get("https://www.saucedemo.com/")
-sleep(3)
-browser.find_element(By.ID, "user-name").send_keys("standard_user")
-browser.find_element(By.ID, "password").send_keys("secret_sauce")
-browser.find_element(By.ID, "login-button").click()
+    def __init__(self):
+        driver = conftest.driver
+        # elements
+        self.username_field = (By.ID, "user-name")
+        self.password_field = (By.ID, "password")
+        self.login_button = (By.ID, "login-button")
 
-sleep(3)
-assert browser.current_url == "https://www.saucedemo.com/inventory.html"
+    def make_login(self, username, password):
+        self.find_element(self.username_field, username)
+        self.find_element(self.password_field, password)
+        self.click(self.login_button)
+
+# sleep(3)
+# assert browser.current_url == "https://www.saucedemo.com/inventory.html"
 
