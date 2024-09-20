@@ -5,9 +5,9 @@ from selenium import webdriver
 def setup_teardown():
     global driver
     driver = webdriver.Chrome()
-    driver.implicitly_wait(5)
     driver.maximize_window()
     driver.get("https://www.saucedemo.com/")
+    driver.implicitly_wait(5)
 
     # run test
     yield
