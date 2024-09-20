@@ -17,3 +17,6 @@ class BasePage:
 
     def click(self, locator):
         return self.driver.find_element(*locator).click()
+
+    def is_element_visible(self, locator):
+        assert self.find_element(locator).is_displayed(), f"The element '{locator}' was not found."

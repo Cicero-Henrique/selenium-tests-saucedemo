@@ -16,7 +16,6 @@ class Test01:
 class Test02:
 
     def test_invalid_user(self):
-        driver = conftest.driver
         login_page = LoginPage()
         login_page.make_login("wrong_user", "wrong_password")
         login_page.check_error_message()

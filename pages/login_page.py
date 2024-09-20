@@ -12,7 +12,7 @@ class LoginPage(BasePage):
         self.password_field = (By.ID, "password")
         self.login_button = (By.ID, "login-button")
         self.error_div = (By.XPATH, "//*[@data-test='error']")
-        self.error_message = (By.XPATH, f"//h3[contains(., {error_message}")
+        self.error_message = (By.XPATH, f"//h3[contains(., '{error_message}')]")
 
     def make_login(self, username, password):
         self.write(self.username_field, username)
@@ -20,5 +20,5 @@ class LoginPage(BasePage):
         self.click(self.login_button)
 
     def check_error_message(self):
-        self.find_element(self.error_div)
-        self.find_element(self.error_message)
+        self.is_element_visible(self.error_div)
+        self.is_element_visible(self.error_message)
