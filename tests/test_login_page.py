@@ -18,4 +18,12 @@ class Test02:
     def test_invalid_user(self):
         login_page = LoginPage()
         login_page.make_login("wrong_user", "wrong_password")
-        login_page.check_error_message()
+        login_page.check_error_message(login_page.error_message_username_password)
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test03:
+
+    def test_empty_username(self):
+        login_page = LoginPage()
+        login_page.make_login("", "wrong_password")
+        login_page.check_error_message(login_page.error_message_username)
