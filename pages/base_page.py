@@ -1,4 +1,6 @@
 import conftest
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BasePage:
@@ -19,4 +21,8 @@ class BasePage:
         return self.driver.find_element(*locator).click()
 
     def is_element_visible(self, locator):
+        self.wait_element(locator)
         assert self.find_element(locator).is_displayed(), f"The element '{locator}' was not found."
+
+    def wait_element(self, locator, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
