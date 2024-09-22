@@ -37,3 +37,12 @@ class Test08:
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
         inventory_page.add_item_to_cart("1")
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test09:
+
+    def test_sort_a_to_z(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        inventory_page.check_sort_z_to_a()
+        inventory_page.check_sort_a_to_z()
