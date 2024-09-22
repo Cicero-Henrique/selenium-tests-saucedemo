@@ -29,3 +29,11 @@ class Test07:
         inventory_page.check_login_successful()
         inventory_page.open_side_menu()
         inventory_page.check_logout_user
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test08:
+
+    def test_reset_app_state_button(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        inventory_page.add_item_to_cart("1")
