@@ -46,3 +46,11 @@ class Test09:
         inventory_page.check_login_successful()
         inventory_page.check_sort_z_to_a()
         inventory_page.check_sort_a_to_z()
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test10:
+
+    def test_sort_z_to_z(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        inventory_page.check_sort_z_to_a()
