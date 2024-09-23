@@ -94,3 +94,10 @@ class InventoryPage(BasePage):
         select.select_by_visible_text('Price (low to high)')
         assert self.find_element(self.lohi_option).is_selected()
         self.check_first_item("Sauce Labs Onesie")
+
+    def check_sort_high_to_low(self):
+        select_element = self.find_element(self.sort_select)
+        select = Select(select_element)
+        select.select_by_visible_text('Price (high to low)')
+        assert self.find_element(self.hilo_option).is_selected()
+        self.check_first_item("Sauce Labs Fleece Jacket")
