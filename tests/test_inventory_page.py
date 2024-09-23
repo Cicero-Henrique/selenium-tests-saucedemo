@@ -62,3 +62,11 @@ class Test11:
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
         inventory_page.check_sort_low_to_high()
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test12:
+
+    def test_sort_high_to_low(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        inventory_page.check_sort_high_to_low()
