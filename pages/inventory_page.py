@@ -19,9 +19,8 @@ class InventoryPage(BasePage):
         self.all_items_button = (By.XPATH, f"//a[(text() = '{text_all_items}')]")
         self.about_button = (By.XPATH, f"//a[(text() = '{text_about}')]")
         self.logout_button = (By.XPATH, f"//a[(text() = '{text_logout}')]")
-        self.add_to_cart_button = (By.ID, "add-to-cart-sauce-labs-backpack")
         self.shopping_cart_button = (By.ID, "shopping_cart_container")
-        self.shopping_cart_list = (By.CLASS_NAME, "cart_list")
+        self.shopping_cart_items = (By.CLASS_NAME, "cart_item")
         self.sort_select = (By.CLASS_NAME, "product_sort_container")
         self.az_option = (By.CSS_SELECTOR, 'option[value=az]')
         self.za_option = (By.CSS_SELECTOR, 'option[value=za]')
@@ -61,13 +60,14 @@ class InventoryPage(BasePage):
         counter = self.find_element(self.side_menu_button).text
         assert counter == expected_counter, f"Expected counter to be {expected_counter}, but got {counter}"
 
-    def add_item_to_cart(self, counter):
+    def add_item_to_cart(self, item, counter):
+        self.add_to_cart_button = (By.ID, f"add-to-cart-{item}")
         self.click(self.add_to_cart_button)
         self.check_cart_counter(counter)
         # Open shopping cart
         self.click(self.shopping_cart_button)
         self.wait_url("https://www.saucedemo.com/cart.html")
-        list_size = len(self.find_elements(self.shopping_cart_list))
+        list_size = len(self.find_elements(self.shopping_cart_items))
         assert str(list_size) == counter, f"Expected size to be {list_size}, but got {counter}"
 
     def check_first_item(self, item_name):
@@ -101,3 +101,9 @@ class InventoryPage(BasePage):
         select.select_by_visible_text('Price (high to low)')
         assert self.find_element(self.hilo_option).is_selected()
         self.check_first_item("Sauce Labs Fleece Jacket")
+
+    def check_add_two_items(self):
+        self.add_item_to_cart("sauce-labs-backpack", "1")
+        self.driver.get("https://www.saucedemo.com/inventory.html")
+        self.wait_element(self.title)
+        self.add_item_to_cart("sauce-labs-bike-light", "2")

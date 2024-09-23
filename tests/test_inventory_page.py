@@ -36,7 +36,7 @@ class Test08:
     def test_reset_app_state_button(self):
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
-        inventory_page.add_item_to_cart("1")
+        inventory_page.add_item_to_cart("sauce-labs-backpack", "1")
 
 @pytest.mark.usefixtures("setup_teardown")
 class Test09:
@@ -70,3 +70,11 @@ class Test12:
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
         inventory_page.check_sort_high_to_low()
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test13:
+
+    def test_add_products_to_cart(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        inventory_page.check_add_two_items()
