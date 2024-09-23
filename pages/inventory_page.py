@@ -25,6 +25,8 @@ class InventoryPage(BasePage):
         self.sort_select = (By.CLASS_NAME, "product_sort_container")
         self.az_option = (By.CSS_SELECTOR, 'option[value=az]')
         self.za_option = (By.CSS_SELECTOR, 'option[value=za]')
+        self.lohi_option = (By.CSS_SELECTOR, 'option[value=lohi]')
+        self.hilo_option = (By.CSS_SELECTOR, 'option[value=hilo]')
         self.list_items = (By.CLASS_NAME, "inventory_item_name")
 
     def check_login_successful(self):
@@ -85,3 +87,10 @@ class InventoryPage(BasePage):
         select.select_by_visible_text('Name (A to Z)')
         assert self.find_element(self.az_option).is_selected()
         self.check_first_item("Sauce Labs Backpack")
+
+    def check_sort_low_to_high(self):
+        select_element = self.find_element(self.sort_select)
+        select = Select(select_element)
+        select.select_by_visible_text('Price (low to high)')
+        assert self.find_element(self.lohi_option).is_selected()
+        self.check_first_item("Sauce Labs Onesie")

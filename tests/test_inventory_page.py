@@ -50,7 +50,15 @@ class Test09:
 @pytest.mark.usefixtures("setup_teardown")
 class Test10:
 
-    def test_sort_z_to_z(self):
+    def test_sort_z_to_a(self):
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
         inventory_page.check_sort_z_to_a()
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test11:
+
+    def test_sort_low_to_high(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        inventory_page.check_sort_low_to_high()
