@@ -11,8 +11,10 @@ class ProductPage(BasePage):
         # elements
         self.inventory_name = (By.XPATH, "//a[@id='item_4_title_link']/div")
         self.inventory_desc = (By.XPATH, "//div[@class='inventory_list']/div[1]//div[@class='inventory_item_desc']")
+        self.inventory_price = (By.XPATH, "//div[@class='inventory_list']/div[1]//div[@class='inventory_item_price']")
         self.product_name = (By.XPATH, "//div[@data-test='inventory-item-name']")
         self.product_desc = (By.XPATH, "//div[@data-test='inventory-item-desc']")
+        self.product_price = (By.XPATH, "//div[@data-test='inventory-item-price']")
 
     def check_name_on_product_page(self):
         inventory_page = InventoryPage()
@@ -31,3 +33,12 @@ class ProductPage(BasePage):
         self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
         desc_product = self.find_element(self.product_desc).text
         assert desc_inventory == desc_product, f"Expected product name to be {desc_inventory}, but got {desc_product}"
+
+    def check_price_on_product_page(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        price_inventory = self.find_element(self.inventory_price).text
+        self.click(self.inventory_name)
+        self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
+        price_product = self.find_element(self.product_price).text
+        assert price_inventory == price_product, f"Expected product name to be {price_inventory}, but got {price_product}"
