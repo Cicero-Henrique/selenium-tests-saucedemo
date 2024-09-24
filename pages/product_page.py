@@ -10,7 +10,9 @@ class ProductPage(BasePage):
         self.driver = conftest.driver
         # elements
         self.inventory_name = (By.XPATH, "//a[@id='item_4_title_link']/div")
+        self.inventory_desc = (By.XPATH, "//div[@class='inventory_list']/div[1]//div[@class='inventory_item_desc']")
         self.product_name = (By.XPATH, "//div[@data-test='inventory-item-name']")
+        self.product_desc = (By.XPATH, "//div[@data-test='inventory-item-desc']")
 
     def check_name_on_product_page(self):
         inventory_page = InventoryPage()
@@ -20,3 +22,12 @@ class ProductPage(BasePage):
         self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
         name_product = self.find_element(self.product_name).text
         assert name_inventory == name_product, f"Expected product name to be {name_inventory}, but got {name_product}"
+
+    def check_desc_on_product_page(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        desc_inventory = self.find_element(self.inventory_desc).text
+        self.click(self.inventory_name)
+        self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
+        desc_product = self.find_element(self.product_desc).text
+        assert desc_inventory == desc_product, f"Expected product name to be {desc_inventory}, but got {desc_product}"
