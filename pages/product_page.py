@@ -16,29 +16,20 @@ class ProductPage(BasePage):
         self.product_desc = (By.XPATH, "//div[@data-test='inventory-item-desc']")
         self.product_price = (By.XPATH, "//div[@data-test='inventory-item-price']")
 
-    def check_name_on_product_page(self):
+    def make_product_assertions(self, inventory, product):
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
-        name_inventory = self.find_element(self.inventory_name).text
+        info_inventory = self.find_element(inventory).text
         self.click(self.inventory_name)
         self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
-        name_product = self.find_element(self.product_name).text
-        assert name_inventory == name_product, f"Expected product name to be {name_inventory}, but got {name_product}"
+        info_product = self.find_element(product).text
+        assert info_inventory == info_product, f"Expected product name to be {info_inventory}, but got {info_product}"
+
+    def check_name_on_product_page(self):
+        self.make_product_assertions(self.inventory_name, self.product_name)
 
     def check_desc_on_product_page(self):
-        inventory_page = InventoryPage()
-        inventory_page.check_login_successful()
-        desc_inventory = self.find_element(self.inventory_desc).text
-        self.click(self.inventory_name)
-        self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
-        desc_product = self.find_element(self.product_desc).text
-        assert desc_inventory == desc_product, f"Expected product name to be {desc_inventory}, but got {desc_product}"
+        self.make_product_assertions(self.inventory_desc, self.product_desc)
 
     def check_price_on_product_page(self):
-        inventory_page = InventoryPage()
-        inventory_page.check_login_successful()
-        price_inventory = self.find_element(self.inventory_price).text
-        self.click(self.inventory_name)
-        self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
-        price_product = self.find_element(self.product_price).text
-        assert price_inventory == price_product, f"Expected product name to be {price_inventory}, but got {price_product}"
+        self.make_product_assertions(self.inventory_price, self.product_price)
