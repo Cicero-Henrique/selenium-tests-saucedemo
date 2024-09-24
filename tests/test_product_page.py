@@ -23,3 +23,10 @@ class Test16:
     def test_product_price(self):
         product_page = ProductPage()
         product_page.check_price_on_product_page()
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test17:
+
+    def test_back_to_inventory(self):
+        product_page = ProductPage()
+        product_page.check_back_to_inventory()
