@@ -30,3 +30,10 @@ class Test17:
     def test_back_to_inventory(self):
         product_page = ProductPage()
         product_page.check_back_to_inventory()
+
+@pytest.mark.usefixtures("setup_teardown")
+class Test18:
+
+    def test_add_to_cart(self):
+        product_page = ProductPage()
+        product_page.check_add_to_cart()

@@ -16,6 +16,7 @@ class ProductPage(BasePage):
         self.product_desc = (By.XPATH, "//div[@data-test='inventory-item-desc']")
         self.product_price = (By.XPATH, "//div[@data-test='inventory-item-price']")
         self.back_inventory_button = (By.ID, "back-to-products")
+        self.add_to_cart_button = (By.ID, "add-to-cart")
 
     def make_product_assertions(self, inventory, product):
         inventory_page = InventoryPage()
@@ -44,3 +45,11 @@ class ProductPage(BasePage):
         self.click(self.back_inventory_button)
         self.wait_url(inventory_url)
         assert inventory_url == self.driver.current_url, f"Expected product name to be {inventory_url}, but got {self.driver.current_url}"
+
+    def check_add_to_cart(self):
+        inventory_page = InventoryPage()
+        inventory_page.check_login_successful()
+        self.click(self.inventory_name)
+        self.wait_url("https://www.saucedemo.com/inventory-item.html?id=4")
+        self.click(self.add_to_cart_button)
+        inventory_page.check_cart_counter("1")
