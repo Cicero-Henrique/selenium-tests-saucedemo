@@ -15,6 +15,7 @@ class CartPage(BasePage):
         self.first_name_input = (By.ID, "first-name")
         self.last_name_input = (By.ID, "last-name")
         self.postal_code_input = (By.ID, "postal-code")
+        self.finish_button = (By.ID, "finish")
 
     def check_remove_item(self):
         inventory_page = InventoryPage()
@@ -42,4 +43,12 @@ class CartPage(BasePage):
         self.complete_form()
         current_url = self.driver.current_url
         expected_url = "https://www.saucedemo.com/checkout-step-two.html"
+        assert current_url == expected_url, f"Expected url to be {expected_url}, but got {current_url}"
+
+    def check_complete_purchase(self):
+        self.check_make_checkout()
+        self.wait_element(self.finish_button)
+        self.click(self.finish_button)
+        current_url = self.driver.current_url
+        expected_url = "https://www.saucedemo.com/checkout-complete.html"
         assert current_url == expected_url, f"Expected url to be {expected_url}, but got {current_url}"
