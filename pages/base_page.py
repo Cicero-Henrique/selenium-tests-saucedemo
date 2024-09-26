@@ -29,3 +29,9 @@ class BasePage:
 
     def wait_url(self, url, timeout=10):
         return WebDriverWait(self.driver, timeout).until(EC.url_to_be(url))
+
+    def get_cart_url(self):
+        return "https://www.saucedemo.com/cart.html"
+
+    def get_inventory_url(self):
+        return "https://www.saucedemo.com/inventory.html"

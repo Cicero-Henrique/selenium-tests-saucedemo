@@ -31,7 +31,7 @@ class InventoryPage(BasePage):
     def check_login_successful(self):
         login_page = LoginPage()
         login_page.make_login("standard_user", "secret_sauce")
-        assert self.driver.current_url == "https://www.saucedemo.com/inventory.html"
+        assert self.driver.current_url == self.get_inventory_url()
         self.is_element_visible(self.title)
 
     def open_side_menu(self):
@@ -66,7 +66,7 @@ class InventoryPage(BasePage):
         self.check_cart_counter(counter)
         # Open shopping cart
         self.click(self.shopping_cart_button)
-        self.wait_url("https://www.saucedemo.com/cart.html")
+        self.wait_url(self.get_cart_url())
         list_size = len(self.find_elements(self.shopping_cart_items))
         assert str(list_size) == counter, f"Expected size to be {list_size}, but got {counter}"
 
@@ -104,6 +104,6 @@ class InventoryPage(BasePage):
 
     def check_add_two_items(self):
         self.add_item_to_cart("sauce-labs-backpack", "1")
-        self.driver.get("https://www.saucedemo.com/inventory.html")
+        self.driver.get(self.get_inventory_url())
         self.wait_element(self.title)
         self.add_item_to_cart("sauce-labs-bike-light", "2")

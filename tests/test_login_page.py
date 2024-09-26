@@ -10,7 +10,7 @@ class Test01:
         driver = conftest.driver
         login_page = LoginPage()
         login_page.make_login("standard_user", "secret_sauce")
-        assert driver.current_url == "https://www.saucedemo.com/inventory.html"
+        assert driver.current_url == login_page.get_inventory_url()
 
 @pytest.mark.usefixtures("setup_teardown")
 class Test02:

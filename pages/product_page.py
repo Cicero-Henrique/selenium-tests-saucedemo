@@ -40,12 +40,11 @@ class ProductPage(BasePage):
     def check_back_to_inventory(self):
         inventory_page = InventoryPage()
         inventory_page.check_login_successful()
-        inventory_url = "https://www.saucedemo.com/inventory.html"
         self.click(self.inventory_name)
         self.wait_url(self.product_url)
         self.click(self.back_inventory_button)
-        self.wait_url(inventory_url)
-        assert inventory_url == self.driver.current_url, f"Expected product name to be {inventory_url}, but got {self.driver.current_url}"
+        self.wait_url(self.get_inventory_url())
+        assert self.get_inventory_url() == self.driver.current_url, f"Expected product name to be {self.get_inventory_url()}, but got {self.driver.current_url}"
 
     def check_add_to_cart(self):
         inventory_page = InventoryPage()
