@@ -97,7 +97,3 @@ Make sure the Chrome WebDriver is installed and matches your Chrome version. Pla
 This project is licensed under the MIT License.
 
 Happy Testing!
-
-```vbnet
-This enhanced `README.md` provides more detailed instructions, project structure, and additional Pytest options to improve clarity and ease of use.
-```
